@@ -1,0 +1,217 @@
+*{
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Navbar {
+	display: flex;
+	flex-direction: column;
+}
+
+#logo {
+  justify-content: flex-start;
+  padding: 3vh;
+  height: 12vh;
+}
+
+.Navlink {
+  font-family: Futura;
+  src: url('./assets/Futura-Medium.woff'), format('WOFF');
+  font-size: 1.5vw;
+  color: "#D8D8D8";
+  width: 60vw;
+  margin: auto;
+  padding: 1vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #C6C6C6;
+}
+
+a:active {
+  color: #848484;
+}
+
+#worldnews {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  padding: 20px 0px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+#worldnewsdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+  /* animation: autoscroll infinite 50s alternate; */
+}
+
+/* @keyframes autoscroll {
+  25 * 370 + 24 * 2 * 25
+  0% {
+    margin-left: 0px;
+  }
+  25% {
+    margin-left: -5225px;
+  }
+  50% {
+    margin-left: -10450px;
+  }
+  75% {
+    margin-left: -5225px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+} */
+
+#box {
+  height: 360px;
+  width: 400px;
+  margin: 25px 25px 0 0;
+  background: #D8D8D8;
+  border-radius: 10px 10px 10px 10px;
+  border-style: solid;
+  border-width: 1.5px;
+}
+
+#newsimg {
+  border-radius: 10px 10px 0px 0px;
+  object-fit: full;
+  height: 210px;
+  width: 395px;
+}
+
+p {
+  margin-left: 10px;
+  margin-top: 1px;
+  font-family: Futura;
+  src: url('./assets/Futura-Bold.woff'), format('WOFF');
+  text-align: left;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.subtitle {
+  font-size: 22px;
+  color: #6E6E6E;
+}
+
+.dirtext {
+  display: flex;
+  font-size: 36px;
+  margin-left: 5%;
+  justify-content: center;
+  align-self: center;
+}
+
+#dirbutton {
+  display: flex;
+  margin-left: 1%;
+  align-self: center;
+}
+
+#linkicon {
+  height: 210px; width: 60px;
+  border-radius: 10px 10px;
+  background-repeat: no-repeat;
+  display:block;
+  background-image: url("./assets/linkbuttonicon.svg");
+}
+
+#linkicon:hover {
+  background-image: url("./assets/linkbuttoniconhover.svg");
+}
+
+#line {
+  margin: 10%;
+}
+
+#about {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 150vw;
+}
+
+#aboutcontainer {
+  display: flex;
+  justify-content: center;
+}
+
+#testTube {
+  display: flex;
+  justify-content: flex-start;
+  align-self: center;
+  width: auto;
+  height: 70vh;
+}
+
+#aboutText {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 24px;
+  color: #6E6E6E;
+  width: 40vw;
+  padding: 0 5%;
+  flex-wrap: wrap;
+}
+
+#ad {
+  height: 80vh;
+  width: 80vw;
+}
