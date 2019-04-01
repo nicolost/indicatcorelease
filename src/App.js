@@ -10,11 +10,36 @@ import rise from './assets/greenrise.svg'
 import fall from './assets/redfall.svg'
 import tube from './assets/testTube.svg'
 import ad from './assets/bannerad.svg'
+import chart from './assets/chartforabout.svg'
+
 
 import Axios from 'axios';
 
 import news from './news.json';
 import './App.css';
+
+const tweet_data = [
+  { tweet: "♨ 'They'll kill me if they find me' #News #Hello #Politics #Opinion #Business #Sports #World #Today https://t.co/Tvth7ErOj8",
+sentiment: "Negative"},{
+tweet: "♨ 🔥 Take me back to 2006 #News #Hello #Politics #Opinion #Business #Sports #World #Today https://t.co/rhkqiS3jr2",
+sentiment: "Negative"},{
+tweet: "♨ Police are tracking you and your license plates #News #Hello #Politics #Opinion #Business #Sports #World #Today https://t.co/yHYot4VRAQ",
+sentiment: "Negative"},{
+tweet: "RT @celebritykimdot: ♨ Student cleared of murdering her disabled mum and leaving body to rot now runs fetish website #News #Hello #Politics…",
+sentiment: "Negative"},{
+tweet: "♨ Student cleared of murdering her disabled mum and leaving body to rot now runs fetish website #News #Hello… https://t.co/KTbEaq9Wdq",
+sentiment: "Negative"},{
+tweet: "♨ Truck driver: Government decides when I work, eat and sleep #News #Hello #Politics #Opinion #Business #Sports… https://t.co/fdqTMkT7rH",
+sentiment: "Negative"},{
+tweet: "♨ 🔥 The apple and fork game #News #Hello #Politics #Opinion #Business #Sports #World #Today https://t.co/hxq6zh9wtJ",
+sentiment: "Negative"},{
+tweet: "♨ Saudis 'had access' to Amazon CEO Jeff Bezos' phone: investigator | USA News #News #Hello #Politics #Opinion… https://t.co/1C5DFTZhNq",
+sentiment: "Negative"},{
+tweet: "♨ Rare look at Myanmar military celebrations - #News #Hello #Politics #Opinion #Business #Sports #World #Today https://t.co/stqKJuuzJ0",
+sentiment: "Positive"},{
+tweet: "♨ 🔥 Not all heros wear capes #News #Hello #Politics #Opinion #Business #Sports #World #Today https://t.co/i42N8zIqsr",
+sentiment: "Negative"}
+]
 
 console.log(news);
 let data = news.titles.map((d, i) => ({ title: d.title, url: d.url, img: news.imgs[i] }))
@@ -109,6 +134,23 @@ class App extends Component {
           <div id="line"><Line data={chartData} options={chartOptions} width={150} height={75}/></div>
         <LiveTweets />
         <About />
+        <div style={{ marginLeft:'-200px', paddingTop: '100px', width: '60%', margin: '0 auto' }}>
+        <hr style={{marginBottom: "5vh"}}/>
+          <div style={{fontWeight: 600, marginBottom: 40}} className="dirtext">Rationale and Technical Specs</div>
+            <img src={chart} height="400" style={{paddingBottom: "5vh"}}/>
+          <p id="aboutText" style={{ width: '100%', textAlign: 'justify', marginLeft: '-30px' }}>
+          We built a tool to make stock predictions using Reddit and Twitter data. We believe that using non conventional data (such as Twitter and Reddit) can give traders an edge when it comes to predicting the stock market. The two tools can be easily integrated with the traders terminal or used through our web app.
+          
+          <br /><br />
+          Reddit stock prediction:
+          Many traders used Reddit in their spare time. So we thought of analysing Reddit’s world news data to predict the outcome of DJIA (Dow Jones Index Average). We try two methods of prediction: news to predict whether open > close using news on the day and using news from the previous days to predict the outcome (open > close) on the next day.
+          To accomplish this we build a neural network model using the state of the art LSTM (Long Short Term Memory). Recent research shows that LSTM works best with textual and sequential data. We trained our LSTM based on dataset by Sun, J, 2016, which contains Reddit world news data over a period of 8 years starting in 2008 and DJIA score. The score is 0 if opening is lower than closing, 1 if it is equal to or higher. Our best model predicts the DJIA score using the data from the day before to predict the outcome of DJIA in the following day.
+          
+          <br /><br />
+          Twitter Sentiment analysis stock prediction:
+          Many traders are avid Twitter users. Therefore it might be useful to find out what people are thinking about certain topics in real time. With this, traders could find recent sentiments on a certain topic, which may influence stock prices. To build this tool, we used the Twitter API along with Google Cloud sentiment analysis under their NLP service.
+          </p>
+        </div>
         <Banner />
       </div>
     );
@@ -181,20 +223,20 @@ const Direction = (props) => {
 const About = (props) => {
   return (
     <div id="aboutcontainer">
-    <div id="about">
-      <img id="testTube" src={tube} />
-      <div id="textbox">
-        <p id="aboutText">
-          Indicat analyses unorthodox alternative data sources in order to predict whether the price of the Dow Jones Index will increase or decrease using machine learning.
-          <br /><br />
-          In the future, we plan to include a multitude of uncorrelated factors and variables into the model including sentiment analysis and Google search trends. What you see here is a proof of concept: we have analysed the top news stories from r/worldnews on Reddit.
-          <br /><br />
-          The Reddit news stories are run through our ML models to come up with a binary price movement (rise/fall) prediction that approaches 60% accuracy.
-          <br /><br />
-          Our goal was to get as far over the 50% mark as possible. In aggregate even 51% has the potential for serious profit if enough volume is used, so the fact that we managed to reach almost 60% has some serious potential.
-        </p>
+      <div id="about">
+        <img id="testTube" src={tube} />
+        <div id="textbox">
+          <p id="aboutText">
+            Indicat analyses unorthodox alternative data sources in order to predict whether the price of the Dow Jones Index will increase or decrease using machine learning.
+            <br /><br />
+            In the future, we plan to include a multitude of uncorrelated factors and variables into the model including sentiment analysis and Google search trends. What you see here is a proof of concept: we have analysed the top news stories from r/worldnews on Reddit.
+            <br /><br />
+            The Reddit news stories are run through our ML models to come up with a binary price movement (rise/fall) prediction that approaches 60% accuracy.
+            <br /><br />
+            Our goal was to get as far over the 50% mark as possible. In aggregate even 51% has the potential for serious profit if enough volume is used, so the fact that we managed to reach almost 60% has some serious potential.
+          </p>
+        </div>
       </div>
-    </div>
     </div>
   )
 }
@@ -208,30 +250,31 @@ class LiveTweets extends Component {
   }
 
   getTweets = async () => {
-    const hashtag = this.state.hashtag;
+    // const hashtag = this.state.hashtag;
     await this.setState({ loading: true });
-    const { data } = await Axios.get(`http://localhost:5000/twitter/hashtag/${hashtag}`);
-    await this.setState({ tweets: data.tweets });
+    await this.setState({ tweets: tweet_data });
     await this.setState({ loading: false });
   }
 
   render() {
     return <div>
-      <input type="text" onChange={e => this.setState({ hashtag: e.target.value })} />
-      <button onClick={this.getTweets}>get tweets</button>
-      {
-        this.state.tweets.length > 0 && <div>
-          { this.state.tweets.map(t => {
-            return <div>
-              <div>Tweet: {t.tweet}</div>
-              <div>Sentiment: {t.score > 0 ? 'Positive' : 'Negative'}</div>
-            </div>
-          }) }
-        </div>
+    <div className="dirtext" style={{fontWeight: 600}}>Find the sentiment of a hashtag:</div><div className="inputstuff">
+      <input className="input" type="text" onChange={e => this.setState({ hashtag: e.target.value })} />
+      <button style={{fontSize: "2em",color: "white", background: "black", borderRadius: "15px", marginTop: "10px", cursor: "pointer"}} onClick={this.getTweets}>Get Tweets</button>
+      </div>
+      <div className="tweetbox">
+      { 
+        this.state.tweets.map(t => {
+          return <div className="tweet" id={t.score > 0 ? 'Positive' : 'Negative'}>
+            <div>Tweet: "{t.tweet}"</div>
+            <div>Sentiment: {t.score > 0 ? 'Positive' : 'Negative'}</div>
+          </div>
+        })
       }
       {
-        this.state.loading && <div>Getting tweets</div>
+        this.state.loading && <div>Fetching tweets...</div>
       }
+      </div>
     </div>
   }
 }
